@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Check";
+}
+<div style="background-color:palegreen">
+    <h3 class="d-flex align-items-center">
+        <span class="me-1"><img width="50px" height="50px" src="/Content/images/checkinfcus.png" alt="Image" class="img-fluid"></span><span>
+            Reconfirm delivery information
+        </span>
+    </h3>
+    @using (Html.BeginForm("ConfirmCheck", "Cart", FormMethod.Post))
+    {
+        <div style="padding-top: 20px; padding-left: 20px" class="col-auto">
+            <p style="font-weight: bold; padding-left: 10px; font-size: 20px; color: blue">Phone number</p>
+            <input style="font-weight: bold;width:50%" name="inputphone" type="text" class="form-control" value="@ViewBag.check">
+        </div>
+        <div style="padding-top:20px;padding-left:20px" class="col-auto">
+            <p style="font-weight: bold; padding-left: 10px; font-size: 20px; color: blue">Adress</p>
+            <input style="font-weight: bold; width: 50%" name="inputadd" type="text" class="form-control" value="@ViewBag.check2">
+        </div>
+        <h3>Payment</h3>
+        <div style="padding-top:20px;padding-left:20px" class="col-auto">
+            <h3><img height="80px" width="80px" src="~/Content/images/tructiep.png" class="img-fluid product-thumbnail">
+                Pay after receive product.
+                <input checked="checked"
+                       id="payment"
+                       name="payment"
+                       type="radio"
+                       value="tructiep" />
+            </h3>
+
+            <br />
+            <h3>
+                <img height="80px" width="80px" src="~/Content/images/thenganhang.png" class="img-fluid product-thumbnail">
+                Pay by card.
+                <input 
+                       id="payment"
+                       name="payment"
+                       type="radio"
+                       value="the" />
+            </h3><br />
+
+                 <h3>
+                     <img height="80px" width="80px" src="~/Content/images/momo.png" class="img-fluid product-thumbnail">
+                     Pay by momo.
+                     <input 
+                            id="payment"
+                            name="payment"
+                            type="radio"
+                            value="momo" />
+                 </h3><br />
+        </div>
+        <div style="padding-bottom:10px; padding-top:20px;padding-left:50%" class="col-auto">
+            <button type="submit" class="btn btn-primary">
+                <span class="fa fa-paper-plane"></span>
+            </button>
+        </div>  
+    }
+
+</div>
+

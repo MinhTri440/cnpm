@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "AfterConfirm";
+}
+<div style="color: white; background-color: palegreen;">
+<h2>Please pay according to the information below now</h2>
+<div>
+    <h4 style="text-align:center; color:red">Content send momo  : @ViewBag.orderID-UserName </h4>
+    <h4 style="text-align:center" ;color:red"">Price: @ViewBag.total VND</h4>
+    <img style="padding-left:30%;height:1500px; width:1500px " src="~/Content/images/@ViewBag.qr" alt="Image" class="img-fluid"><br />
+    <a style="padding-left: 45%" href="~/Cart/clearCart"> <button style="background-color: #00ff00 !important;"  class="btn btn-outline-black btn-sm btn-block">Continue Shopping</button></a>
+</div>
+  </div>
