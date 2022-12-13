@@ -369,22 +369,34 @@ namespace MyPhamWeb.Controllers
                 TempData["chuki"] = checkSignature.ToString();
                 if (checkSignature)
                 {
-                    if (vnp_ResponseCode == "00")
+                    if (vnp_ResponseCode.Equals("00"))
                     {
 
-
+                        string orderID = TempData["orderID"] as string;
+                        string TenHoaDon = TempData["orderIDnew"] as string;
+                        var setTotalOrder = myPhamEntities.Orders.FirstOrDefault(s => s.ID.ToString().Equals(orderID));
+                        setTotalOrder.Name = TenHoaDon;
+                        myPhamEntities.SaveChanges();
                         //Thanh toán thành công
                         ViewBag.Message = "Thanh toán thành công hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId;
                         
                     }
                     else
                     {
+                        string orderID = TempData["orderID"] as string;
+                        var setTotalOrder = myPhamEntities.Orders.FirstOrDefault(s => s.ID.ToString().Equals(orderID));
+                        myPhamEntities.Orders.Remove(setTotalOrder);
+                        myPhamEntities.SaveChanges();
                         //Thanh toán không thành công. Mã lỗi: vnp_ResponseCode
                         ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId + " | Mã lỗi: " + vnp_ResponseCode;
                     }
                 }
                 else
                 {
+                    string orderID = TempData["orderID"] as string;
+                    var setTotalOrder = myPhamEntities.Orders.FirstOrDefault(s => s.ID.ToString().Equals(orderID));
+                    myPhamEntities.Orders.Remove(setTotalOrder);
+                    myPhamEntities.SaveChanges();
                     ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý";
                 }
             }
@@ -393,36 +405,6 @@ namespace MyPhamWeb.Controllers
         }
         public ActionResult SavePaymentVnpay()
         {
-            string statusThanhToan = TempData["statusThanhtoan"] as string;
-            string chuki = TempData["chuki"] as string;
-            if (chuki.Equals("true"))
-            {
-                if (statusThanhToan.Equals("00"))
-                {
-                    string orderID = TempData["orderID"] as string;
-                    string TenHoaDon = TempData["orderIDnew"] as string;
-                    var setTotalOrder = myPhamEntities.Orders.FirstOrDefault(s => s.ID.ToString().Equals(orderID));
-                    setTotalOrder.Name = TenHoaDon;
-                    myPhamEntities.SaveChanges();
-                }
-                else
-                {
-                    string orderID = TempData["orderID"] as string;
-                    var setTotalOrder = myPhamEntities.Orders.FirstOrDefault(s => s.ID.ToString().Equals(orderID));
-                    myPhamEntities.Orders.Remove(setTotalOrder);
-                    myPhamEntities.SaveChanges();
-                    //Thanh toán không thành công. Mã lỗi: vnp_ResponseCode
-
-                }
-            }
-            else
-            {
-                string orderID = TempData["orderID"] as string;
-                var setTotalOrder = myPhamEntities.Orders.FirstOrDefault(s => s.ID.ToString().Equals(orderID));
-                myPhamEntities.Orders.Remove(setTotalOrder);
-                myPhamEntities.SaveChanges();
-            }
-
             //cập nhật dữ liệu vào db
 
             return RedirectToAction("clearCart");

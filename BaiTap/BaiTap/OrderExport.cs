@@ -385,6 +385,7 @@ namespace BaiTap
                     con.Close();
                 }
                 OrderExportId = 0;
+
             }
             catch (System.Exception exp)
             {
